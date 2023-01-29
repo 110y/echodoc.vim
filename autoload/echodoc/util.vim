@@ -303,6 +303,9 @@ function! echodoc#util#completion_signature(completion, maxlen, filetype) abort
   let stack = []
   for info in abbrs
     let info = info[:a:maxlen]
+    if &filetype ==# 'go' && !(info[0:1] ==# 'L ')
+      continue
+    endif
     let stack = echodoc#util#parse_funcs(info, a:filetype)
     if !empty(stack)
       break
